@@ -14,11 +14,11 @@ public class BootReceiver extends BroadcastReceiver {
         // an Intent broadcast.
         if(Intent.ACTION_BOOT_COMPLETED.equals(intent.getAction())){
             Log.d(TAG,"Boot complete");
-            //Intent n = new Intent(context,BootService.class);
-            //context.startService(n);
-            Intent n = new Intent(context,MainActivity.class);
+            Intent n = new Intent(context,BootService.class);
+            context.startService(n);
+            /*Intent n = new Intent(context,MainActivity.class);
             n.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-            context.startActivity(n);
+            context.startActivity(n);*/
         }
 
     }

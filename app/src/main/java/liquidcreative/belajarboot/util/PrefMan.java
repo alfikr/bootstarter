@@ -36,14 +36,19 @@ public class PrefMan {
     }
     public Konfigurasi getKonfigurasi(){
         Konfigurasi konfigurasi=new Konfigurasi();
-        if(preferences.getLong(TANGGAL_CREATE,0)!=0){
-            konfigurasi.setCreateDate(new Date(preferences.getLong(TANGGAL_CREATE,0)));
-
+        long create=preferences.getLong(TANGGAL_CREATE,0);
+        if(create==0){
+            konfigurasi.setCreateDate(null);
+        }else {
+            konfigurasi.setCreateDate(new Date(create));
         }
-        if(preferences.getLong(TANGGAL_ALERT,0)!=0){
-            konfigurasi.setAlarmDate(new Date(preferences.getLong(TANGGAL_ALERT,0)));
+        long alarm = preferences.getLong(TANGGAL_ALERT,0);
+        if(alarm==0){
+            konfigurasi.setAlarmDate(null);
+        }else{
+            konfigurasi.setAlarmDate(new Date(alarm));
         }
-        konfigurasi.setHasShown(preferences.getBoolean(Tampil,false));
+        konfigurasi.setHasShown(preferences.getBoolean(Tampil,true));
         return konfigurasi;
     }
 }
