@@ -1,6 +1,7 @@
 package liquidcreative.belajarboot;
 
 import android.app.Application;
+import android.app.PendingIntent;
 
 import liquidcreative.belajarboot.util.PrefMan;
 
@@ -14,11 +15,20 @@ public class App extends Application {
     public static App getInstance(){
         return instance;
     }
+    private PendingIntent alarmIntent;
     @Override
     public void onCreate() {
         super.onCreate();
         prefMan=new PrefMan(App.this);
         instance=this;
+    }
+
+    public PendingIntent getAlarmIntent() {
+        return alarmIntent;
+    }
+
+    public void setAlarmIntent(PendingIntent alarmIntent) {
+        this.alarmIntent = alarmIntent;
     }
 
     public PrefMan getPrefMan() {
