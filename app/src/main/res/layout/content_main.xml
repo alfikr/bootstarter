@@ -14,6 +14,11 @@
             android:text="Buat Alert 1 menit"
             android:layout_width="match_parent"
             android:layout_height="wrap_content" />
+        <Button
+            android:id="@+id/btnCancelAlert"
+            android:text="Alarm Batal"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content" />
         <TextView
             android:id="@+id/txtTest"
             android:layout_width="match_parent"
