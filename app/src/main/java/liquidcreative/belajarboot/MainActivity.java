@@ -44,6 +44,7 @@ import liquidcreative.belajarboot.pojo.Konfigurasi;
 public class MainActivity extends AppCompatActivity {
     private final int REQUEST_BOOT=101;
     private Button btnAlert;
+    private Button btnCancel;
     private App app;
     private boolean serviceStarted;
     private Gson gson;
@@ -95,6 +96,20 @@ public class MainActivity extends AppCompatActivity {
                     tv.setText(gson.toJson(app.getPrefMan().getKonfigurasi()));
                 }catch (Exception ex){
 
+                }
+            }
+        });
+        btnCancel=(Button) findViewById(R.id.btnCancelAlert);
+        btnCancel.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                PendingIntent pi = app.getAlarmIntent();
+                if(pi!=null){
+                    pi.cancel();
+                    Konfigurasi konfigurasi=app.getPrefMan().getKonfigurasi();
+                    konfigurasi.setAlarmDate(null);
+                    konfigurasi.setCreateDate(null);
+                    app.getPrefMan().setKonfig(konfigurasi);
                 }
             }
         });
