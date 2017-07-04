@@ -61,10 +61,13 @@ public class BootService extends Service {
     private void jajalTest(){
         Konfigurasi konfigurasi=app.getPrefMan().getKonfigurasi();
         AlarmManager alarmManager= (AlarmManager) BootService.this.getSystemService(Context.ALARM_SERVICE);
+
+        if(konfigurasi.getAlarmDate()!=null && !konfigurasi.isHasShown()){
         if(!isAtem){
             if(konfigurasi.getAlarmDate()!=null && !konfigurasi.isHasShown()){
             Intent i=new Intent(BootService.this,NotificationAlertReceiver.class);
             PendingIntent pi = PendingIntent.getBroadcast(BootService.this,1,i,PendingIntent.FLAG_UPDATE_CURRENT);
+            app.setAlarmIntent(pi);
             if(new Date().after(konfigurasi.getAlarmDate())){
                 Log.d(TAG,"immediatelly");
                 Calendar calendar=Calendar.getInstance();
@@ -83,27 +86,10 @@ public class BootService extends Service {
         timerTask=new TimerTask() {
             @Override
             public void run() {
-                Konfigurasi konfigurasi=app.getPrefMan().getKonfigurasi();
-AlarmManager alarmManager= (AlarmManager) BootService.this.getSystemService(Context.ALARM_SERVICE);
-                if(!isAtem){
-            if(konfigurasi.getAlarmDate()!=null && !konfigurasi.isHasShown()){
-            Intent i=new Intent(BootService.this,NotificationAlertReceiver.class);
-            PendingIntent pi = PendingIntent.getBroadcast(BootService.this,1,i,PendingIntent.FLAG_UPDATE_CURRENT);
-            if(new Date().after(konfigurasi.getAlarmDate())){
-                Log.d(TAG,"immediatelly");
-                Calendar calendar=Calendar.getInstance();
-                alarmManager.set(AlarmManager.RTC_WAKEUP,calendar.getTimeInMillis(),pi);
-            }else{
-                Log.d(TAG,"alert on the way");
-                Calendar calendar=Calendar.getInstance();
-                calendar.setTime(konfigurasi.getAlarmDate());
-                alarmManager.set(AlarmManager.RTC_WAKEUP,calendar.getTimeInMillis(),pi);
+                jajalTest();
+
             }
-            isAtem=true;
-        }
-        }
-            }
-        };
+        };    
     }
 
     @Override
